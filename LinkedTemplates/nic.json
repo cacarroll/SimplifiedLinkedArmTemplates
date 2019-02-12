@@ -1,0 +1,75 @@
+﻿{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vms": {
+            "type": "array"
+        },
+        "vNetName": {
+            "type": "string"
+        }
+    },
+
+    "variables": {
+        "vNetID": "[resourceId('Microsoft.Network/virtualnetworks', parameters('vNetName'))]"
+    },
+
+    "resources": [
+        {
+            "name": "[concat(parameters('vms')[copyIndex()].targetItemName, 'NIC1')]",
+            "type": "Microsoft.Network/networkInterfaces",
+            "location": "[resourceGroup().location]",
+            "apiVersion": "2018-10-01",
+            "dependsOn": [],
+            "tags": {
+                "displayName": "NIC1"
+            },
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig",
+                        "properties": {
+                            "privateIPAddress": "[parameters('vms')[copyIndex()].networks[0].IPAddress]",
+                            "privateIPAllocationMethod": "Static",
+                            "subnet": {
+                                "id": "[concat(variables('vNetID'), '/subnets/', parameters('vms')[copyIndex()].networks[0].subnetName)]"
+                            }
+                        }
+                    }
+                ]
+            },
+            "copy": {
+                "name": "NicCopy",
+                "count": "[length(parameters('vms'))]"
+            }
+        },
+        {
+            "name": "[concat(parameters('vms')[copyIndex()].targetItemName, 'NIC2')]",
+            "type": "Microsoft.Network/networkInterfaces",
+            "location": "[resourceGroup().location]",
+            "apiVersion": "2018-10-01",
+            "dependsOn": [],
+            "tags": {
+                "displayName": "NIC2"
+            },
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig",
+                        "properties": {
+                            "privateIPAddress": "[parameters('vms')[copyIndex()].networks[1].IPAddress]",
+                            "privateIPAllocationMethod": "Static",
+                            "subnet": {
+                                "id": "[concat(variables('vNetID'), '/subnets/', parameters('vms')[copyIndex()].networks[1].subnetName)]"
+                            }
+                        }
+                    }
+                ]
+            },
+            "copy": {
+                "name": "NicCopy",
+                "count": "[length(parameters('vms'))]"
+            }
+        }
+    ]
+}

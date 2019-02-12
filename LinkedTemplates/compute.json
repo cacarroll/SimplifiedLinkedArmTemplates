@@ -1,0 +1,142 @@
+﻿{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "serverAdminUserName": {
+            "type": "string"
+        },
+        "ServerAdminPassword": {
+            "type": "securestring"
+        },
+        "vms": {
+            "type": "array"
+        },
+        "vhdStorageAccountUrl": {
+            "type": "string"
+        },
+        "StorageContainerName": {
+            "type": "string"
+        }
+    },
+
+    "resources": [
+        {
+            "condition": "[equals(parameters('vms')[copyIndex()].imageType, 'Generalized')]",
+            "name": "[parameters('vms')[copyIndex()].targetItemName]",
+            "type": "Microsoft.Compute/virtualMachines",
+            "location": "[resourceGroup().location]",
+            "apiVersion": "2018-06-01",
+            "dependsOn": [],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[parameters('vms')[copyIndex()].vmSize]"
+                },
+                "osProfile": {
+                    "computerName": "[parameters('vms')[copyIndex()].targetItemName]",
+                    "adminUsername": "[parameters('ServerAdminUserName')]",
+                    "adminPassword": "[parameters('ServerAdminPassword')]"
+                },
+                "storageProfile": {
+                    "osDisk": {
+                        "name": "[parameters('vms')[copyIndex()].targetItemName]",
+                        "osType": "[if(equals(parameters('vms')[copyIndex()].osType, 'Windows'), 'Windows', 'Linux')]",
+                        "caching": "ReadWrite",
+                        "createOption": "[if(equals(parameters('vms')[copyIndex()].imageType, 'Specialized'), 'Attach','FromImage')]",
+                        "image": {
+                            "uri": "[if(equals(parameters('vms')[copyIndex()].imageType, 'Specialized'), json('null'),parameters('vms')[copyIndex()].VhdUrl)]"
+                        },
+                        "vhd": {
+                            "uri": "[concat(parameters('vhdStorageAccountUrl'), parameters('StorageContainerName') ,'/', parameters('vms')[copyIndex()].targetItemName, '.vhd')]"
+                        }
+                    }
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('vms')[copyIndex()].targetItemName, 'NIC1'))]",
+                            "properties": {
+                                "primary": true
+                            }
+                        },
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('vms')[copyIndex()].targetItemName, 'NIC2'))]",
+                            "properties": {
+                                "primary": false
+                            }
+                        }
+                    ]
+                }
+            },
+            "copy": {
+                "name": "vmCopy",
+                "count": "[length(parameters('vms'))]"
+            },
+            "resources": [
+                {
+                    "condition": "[equals(parameters('vms')[copyIndex()].imageType, 'Generalized')]",
+                    "name": "Microsoft.Powershell.DSC",
+                    "type": "extensions",
+                    "location": "[resourceGroup().location]",
+                    "apiVersion": "2018-06-01",
+                    "dependsOn": [
+                        "[concat('Microsoft.Compute/virtualMachines/', parameters('vms')[copyIndex()].targetItemName)]"
+                    ],
+                    "properties": {
+                        "autoUpgradeMinorVersion": true,
+                        "settings": {
+                            "wmfVersion": "5.1"
+                        },
+                        "publisher": "Microsoft.Powershell",
+                        "type": "DSC",
+                        "typeHandlerVersion": "2.19",
+                        "protectedSettings": {}
+                    }
+                }
+            ]
+        },
+        {
+            "condition": "[equals(parameters('vms')[copyIndex()].imageType, 'Specialized')]",
+            "name": "[concat(parameters('vms')[copyIndex()].targetItemName,1)]",
+            "type": "Microsoft.Compute/virtualMachines",
+            "location": "[resourceGroup().location]",
+            "apiVersion": "2018-06-01",
+            "dependsOn": [],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[parameters('vms')[copyIndex()].vmSize]"
+                },
+                "storageProfile": {
+                    "osDisk": {
+                        "name": "[parameters('vms')[copyIndex()].targetItemName]",
+                        "osType": "[if(equals(parameters('vms')[copyIndex()].osType, 'Windows'), 'Windows', 'Linux')]",
+                        "caching": "ReadWrite",
+                        "createOption": "[if(equals(parameters('vms')[copyIndex()].imageType, 'Specialized'), 'Attach','FromImage')]",
+                        "vhd": {
+                            "uri": "[concat(parameters('vhdStorageAccountUrl'), '/', parameters('StorageContainerName') ,'/', parameters('vms')[copyIndex()].targetItemName, '.vhd')]"
+                        }
+                    }
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('vms')[copyIndex()].targetItemName, 'NIC1'))]",
+                            "properties": {
+                                "primary": true
+                            }
+                        },
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('vms')[copyIndex()].targetItemName, 'NIC2'))]",
+                            "properties": {
+                                "primary": false
+                            }
+                        }
+                    ]
+                }
+            },
+            "copy": {
+                "name": "vmCopy",
+                "count": "[length(parameters('vms'))]"
+            }
+        }
+    ]
+}

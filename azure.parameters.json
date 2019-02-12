@@ -1,0 +1,145 @@
+﻿{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "setting": {
+        "value":
+            {
+                "vnetName": "Network",
+                "serverAdminUserName": "xadmin",
+                "templateContainerName": "templates",
+                "subnets": [
+                    {
+                        "subnetName": "Public",
+                        "subnetRange": "192.168.1.0/24"
+                    },
+                    {
+                        "subnetName": "Mgmt",
+                        "subnetRange": "10.10.10.0/24"
+                    }
+                ],
+                "dnsServers": [
+                    "192.168.1.100",
+                    "1.1.1.1"
+                ],
+                "vms": [
+                    {
+                        "targetItemName": "DC1",
+                        "vhdUrl": "https://storageaccount.blob.core.usgovcloudapi.net/vhds/DC1.vhd",
+                        "vmSize": "Standard_D1_v2",
+                        "osType": "Windows",
+                        "imageType": "Specialized",
+                        "networks": [
+                            {
+                                "name": "Ethernet",
+                                "IPAddress": "192.168.1.100",
+                                "subnetName": "Public"
+                            },
+                            {
+                                "name": "Ethernet2",
+                                "IPAddress": "10.10.10.100",
+                                "subnetName": "Mgmt"
+                            }
+                        ]
+                    },
+                    {
+                        "targetItemName": "SCCM01",
+                        "vhdUrl": "https://storageaccount.blob.core.usgovcloudapi.net/vhds/DC2.vhd",
+                        "vmSize": "Standard_D1_v2",
+                        "osType": "Windows",
+                        "imageType": "Specialized",
+                        "networks": [
+                            {
+                                "name": "Ethernet",
+                                "IPAddress": "192.168.1.200",
+                                "subnetName": "Public"
+                            },
+                            {
+                                "name": "Ethernet2",
+                                "IPAddress": "10.10.10.200",
+                                "subnetName": "Mgmt"
+                            }
+                        ]
+                    },
+                    {
+                        "targetItemName": "DP01",
+                        "vhdUrl": "https://storageaccount.blob.core.usgovcloudapi.net/vhds/sccmdp01.vhd",
+                        "vmSize": "Standard_D1_v2",
+                        "osType": "Windows",
+                        "imageType": "Specialized",
+                        "networks": [
+                            {
+                                "name": "Ethernet",
+                                "IPAddress": "192.168.1.101",
+                                "subnetName": "Public"
+                            },
+                            {
+                                "name": "Ethernet2",
+                                "IPAddress": "10.10.10.101",
+                                "subnetName": "Mgmt"
+                            }
+                        ]
+                    },
+                    {
+                        "targetItemName": "DP01",
+                        "vhdUrl": "https://storageaccount.blob.core.usgovcloudapi.net/vhds/Win2012R2Baseline.vhd",
+                        "vmSize": "Standard_D1_v2",
+                        "osType": "Windows",
+                        "imageType": "Generalized",
+                        "networks": [
+                            {
+                                "name": "Ethernet",
+                                "IPAddress": "192.168.1.102",
+                                "subnetName": "Public"
+                            },
+                            {
+                                "name": "Ethernet2",
+                                "IPAddress": "10.10.10.102",
+                                "subnetName": "Mgmt"
+                            }
+                        ]
+                    },
+                    {
+                        "targetItemName": "TestServer",
+                        "vhdUrl": "https://storageaccount.blob.core.usgovcloudapi.net/vhds/Win2012R2Baseline.vhd",
+                        "vmSize": "Standard_D1_v2",
+                        "osType": "Windows",
+                        "imageType": "Specialized",
+                        "pip": true,
+                        "networks": [
+                            {
+                                "name": "Ethernet",
+                                "IPAddress": "192.168.1.101",
+                                "subnetName": "Public"
+                            },
+                            {
+                                "name": "Ethernet2",
+                                "IPAddress": "10.10.10.101",
+                                "subnetName": "Mgmt"
+                            }
+                        ]
+                    },
+                    {
+                        "targetItemName": "Linux01",
+                        "vhdUrl": "https://storageaccount.blob.core.usgovcloudapi.net/vhds/linux01.vhd",
+                        "vmSize": "Standard_D12_v2",
+                        "osType": "Linux",
+                        "imageType": "Specialized",
+                        "networks": [
+                            {
+                                "name": "Ethernet",
+                                "IPAddress": "192.168.1.102",
+                                "subnetName": "Public"
+                            },
+                            {
+                                "name": "Ethernet2",
+                                "IPAddress": "10.10.10.102",
+                                "subnetName": "Mgmt"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

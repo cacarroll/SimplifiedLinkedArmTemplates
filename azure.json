@@ -1,0 +1,110 @@
+﻿{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "setting": {
+            "type": "object"
+        },
+        "TemplateSasToken": {
+            "type": "string"
+        },
+        "TemplatePath": {
+            "type": "string"
+        },
+        "StorageContainerName": {
+            "type": "string"
+        },
+        "ServerAdminPassword": {
+            "type": "securestring"
+        }
+    },
+
+    "variables": {
+        "networkTemplate": "virtualNetwork.json",
+        "network": "[concat(parameters('TemplatePath'),variables('networkTemplate'))]",
+
+        "nicTemplate": "nic.json",
+        "nic": "[concat(parameters('TemplatePath'),variables('nicTemplate'))]",
+
+        "computeTemplate": "compute.json",
+        "compute": "[concat(parameters('TemplatePath'),variables('computeTemplate'))]"
+    },
+
+    "resources": [
+        {
+            "name": "VirtualNetwork-LinkedTemplate",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2017-05-10",
+            "dependsOn": [],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri":"[concat(variables('network'),parameters('TemplateSasToken'))]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "vNetName": {
+                        "value": "[parameters('setting').vNetName]"
+                    },
+                    "subnets": {
+                        "value": "[parameters('setting').subnets]"
+                    },
+                    "dnsServers": {
+                        "value": "[parameters('setting').dnsServers]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "Nic-LinkedTemplate",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2017-05-10",
+            "dependsOn": ["VirtualNetwork-LinkedTemplate"],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri":"[concat(variables('nic'),parameters('TemplateSasToken'))]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "Vms": {
+                        "value": "[parameters('setting').vms]"
+                    },
+                    "vNetName": {
+                        "value": "[parameters('setting').vNetName]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "Compute-LinkedTemplate",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2017-05-10",
+            "dependsOn": ["Nic-LinkedTemplate"],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri":"[concat(variables('compute'),parameters('TemplateSasToken'))]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "serverAdminUserName": {
+                        "value": "[parameters('setting').serverAdminUserName]"
+                    },
+                    "ServerAdminPassword": {
+                        "value": "[parameters('ServerAdminPassword')]"
+                    },
+                    "vhdStorageAccountUrl": {
+                        "value": "[parameters('setting').vhdStorageAccountUrl]"
+                    },
+                    "StorageContainerName": {
+                        "value": "[parameters('StorageContainerName')]"
+                    },
+                    "vms": {
+                        "value": "[parameters('setting').vms]"
+                    }
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,59 @@
+﻿{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vNetName": {
+            "type": "string"
+        },
+        "subnets": {
+            "type": "array"
+        },
+        "dnsServers": {
+            "type": "array"
+        }
+    },
+
+    "resources": [
+        {
+            "name": "[concat(parameters('vNetName'))]",
+            "type": "Microsoft.Network/virtualNetworks",
+            "location": "[resourceGroup().location]",
+            "apiVersion": "2018-10-01",
+            "dependsOn": [],
+            "tags": {
+                "displayName": "Network"
+            },
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "[parameters('subnets')[0].subnetRange]",
+                        "[parameters('subnets')[1].subnetRange]",
+                        "[parameters('subnets')[2].subnetRange]",
+                        "[parameters('subnets')[3].subnetRange]",
+                        "[parameters('subnets')[4].subnetRange]",
+                        "[parameters('subnets')[5].subnetRange]",
+                        "[parameters('subnets')[6].subnetRange]",
+                        "[parameters('subnets')[7].subnetRange]",
+                        "[parameters('subnets')[8].subnetRange]",
+                        "[parameters('subnets')[9].subnetRange]"
+                    ]
+                },
+                "dhcpOptions": {
+                    "dnsServers": "[parameters('dnsServers')]"
+                },
+                "copy": [
+                    {
+                        "name": "subnets",
+                        "count": "[length(parameters('subnets'))]",
+                        "input": {
+                            "name": "[parameters('subnets')[copyIndex('subnets')].subnetName]",
+                            "properties": {
+                                "addressPrefix":"[parameters('subnets')[copyIndex('subnets')].subnetRange]"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,58 @@
+﻿{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "setting": {
+        "value":
+            {
+                "vnetName": "Network",
+                "serverAdminUserName": "xadmin",
+                "templateContainerName": "templates",
+                "subnets": [
+                    {
+                        "subnetName": "Public",
+                        "subnetRange": "192.168.1.0/24"
+                    },
+                    {
+                        "subnetName": "Mgmt",
+                        "subnetRange": "10.10.10.0/24"
+                    }
+                ],
+                "dnsServers": [
+                    "192.168.1.100",
+                    "1.1.1.1"
+                ],
+                "vms": [
+                    {
+                        "targetItemName": "TestServer01",
+                        "vhdUrl": "https://storageaccount.blob.core.usgovcloudapi.net/vhds/syspreppedimage.vhd",
+                        "vmSize": "Standard_D1_v2",
+                        "osType": "Windows",
+                        "imageType": "Generalized",
+                        "networks": [
+                            {
+                                "name": "Ethernet",
+                                "IPAddress": "192.168.1.100",
+                                "subnetName": "Public"
+                            }
+                        ]
+                    },
+                    {
+                        "targetItemName": "TestServer01",
+                        "vhdUrl": "https://storageaccount.blob.core.usgovcloudapi.net/vhds/syspreppedimage.vhd",
+                        "vmSize": "Standard_D1_v2",
+                        "osType": "Windows",
+                        "imageType": "Specialized",
+                        "networks": [
+                            {
+                                "name": "Ethernet",
+                                "IPAddress": "192.168.1.200",
+                                "subnetName": "Public"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}
