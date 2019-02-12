@@ -78,8 +78,11 @@ The following will validate your ARM template prior to production deployment.  I
 
 <a name="Example Parameter Files"></a>
 # Example Paremeter Files
+
 **multiDomainControllers** - Demonstrates how to deploy specialized vhds to deploy two domain controllers.
+
 **syspreppedWindowsImage** - Demonstrates how to deploy two sysprepped Windows images
+
 **sccmInfrastructure** - Demonstrates how to deploy Domain Controllers, SCCM Site Servers, and a test server with a public IP.
 
 <a name="references"></a>
