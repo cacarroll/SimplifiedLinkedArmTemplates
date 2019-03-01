@@ -15,13 +15,9 @@
 
 ## __Objectives__
 
----
-
 Provide a flexible and simplified method for deploying custom network, NIC and compute resources into Azure
 
 ## __Overview__
-
----
 
 Azure Resource Manager is a consistent management layer that enables you to create, update, and delete resources in your Azure subscription.  However, adding resources, updating, or removing can be tricky due to the nature of JSON.  Also, testing ARM deployments can be challenging and time consuming.
 
@@ -40,16 +36,12 @@ The linked templates support conditions so there is no need to create different 
 
 ## __Prerequisites__
 
----
-
 1. Create a storage account and container.
 2. Copy the files under \LinkedTemplates to container created in step 1.
 
 ![StorageContainer](images\linkedtemplates.PNG)
 
 ## __Testing Your Azure ARM Templates__
-
----
 
 This command will validate your ARM template, prior to production deployment.  It is important to do this to confirm there are no errors.  It will also provide valuable debugging information if there is a problem.
 
@@ -62,8 +54,6 @@ PowerShell
 
 ## __Deploy__
 
----
-
 This command will deploy the resources to Azure, after any issues found during the debug process have been resolved.
 
 PowerShell
@@ -74,8 +64,6 @@ PowerShell
 ```
 
 ## __Parameters JSON Schema__
-
----
 
 **targetItemName:** Name assiged to the VM.
 
@@ -97,8 +85,6 @@ PowerShell
 
 ## __Example Paremeter Files__
 
----
-
 **multiDomainControllers** - Demonstrates how to deploy specialized VHDs to deploy two Domain Controllers.
 
 **syspreppedWindowsImage** - Demonstrates how to deploy two sysprepped Windows images
@@ -106,7 +92,5 @@ PowerShell
 **sccmInfrastructure** - Demonstrates how to deploy Domain Controllers, SCCM Site Servers, and a test server with a public IP.
 
 ## __References__
-
----
 
 [Linked ARM Template Microsoft Docs Page](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-linked-templates)
