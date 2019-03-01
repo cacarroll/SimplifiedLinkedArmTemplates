@@ -39,7 +39,7 @@ The linked templates support conditions so there is no need to create different 
 1. Create a storage account and container.
 2. Copy the files under \LinkedTemplates to container created in step 1.
 
-![StorageContainer](images\linkedtemplates.PNG)
+![StorageContainer](images/linkedtemplates.PNG)
 
 ## __Testing Your Azure ARM Templates__
 
