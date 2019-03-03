@@ -9,11 +9,9 @@
             "type": "string"
         }
     },
-
     "variables": {
         "vNetID": "[resourceId('Microsoft.Network/virtualnetworks', parameters('vNetName'))]"
     },
-
     "resources": [
         {
             "name": "[concat(parameters('vms')[copyIndex()].targetItemName, 'NIC1')]",

@@ -7,7 +7,6 @@
             {
                 "vnetName": "Network",
                 "serverAdminUserName": "xadmin",
-                "templateContainerName": "templates",
                 "subnets": [
                     {
                         "subnetName": "Public",
@@ -81,25 +80,6 @@
                         ]
                     },
                     {
-                        "targetItemName": "DP01",
-                        "vhdUrl": "https://storageaccount.blob.core.usgovcloudapi.net/vhds/Win2012R2Baseline.vhd",
-                        "vmSize": "Standard_D1_v2",
-                        "osType": "Windows",
-                        "imageType": "Generalized",
-                        "networks": [
-                            {
-                                "name": "Ethernet",
-                                "IPAddress": "192.168.1.102",
-                                "subnetName": "Public"
-                            },
-                            {
-                                "name": "Ethernet2",
-                                "IPAddress": "10.10.10.102",
-                                "subnetName": "Mgmt"
-                            }
-                        ]
-                    },
-                    {
                         "targetItemName": "TestServer",
                         "vhdUrl": "https://storageaccount.blob.core.usgovcloudapi.net/vhds/Win2012R2Baseline.vhd",
                         "vmSize": "Standard_D1_v2",
@@ -109,12 +89,12 @@
                         "networks": [
                             {
                                 "name": "Ethernet",
-                                "IPAddress": "192.168.1.101",
+                                "IPAddress": "192.168.1.102",
                                 "subnetName": "Public"
                             },
                             {
                                 "name": "Ethernet2",
-                                "IPAddress": "10.10.10.101",
+                                "IPAddress": "10.10.10.102",
                                 "subnetName": "Mgmt"
                             }
                         ]
@@ -128,12 +108,12 @@
                         "networks": [
                             {
                                 "name": "Ethernet",
-                                "IPAddress": "192.168.1.102",
+                                "IPAddress": "192.168.1.103",
                                 "subnetName": "Public"
                             },
                             {
                                 "name": "Ethernet2",
-                                "IPAddress": "10.10.10.102",
+                                "IPAddress": "10.10.10.103",
                                 "subnetName": "Mgmt"
                             }
                         ]

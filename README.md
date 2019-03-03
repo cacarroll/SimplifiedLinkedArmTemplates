@@ -36,8 +36,9 @@ The linked templates support conditions so there is no need to create different 
 
 ## __Prerequisites__
 
-1. Create a storage account and container.
-2. Copy the files under \LinkedTemplates to container created in step 1.
+1. Create a Storage Account and Storage Container.
+2. Copy the files in the LinkedTemplates folder to the Storage Container created in step 1.
+3. Run Connect-AzureRmAccount to connect PowerShell to Azure
 
 ![StorageContainer](images\linkedtemplates.PNG)
 
@@ -49,7 +50,7 @@ PowerShell
 
 ```PowerShell
 .\deploy.ps1 -DeploymentName 'TestDeployment' -TemplateFile .\azure.json -TemplateParameterFile `
-.\azure.parameters.json -TemplateContainerName 'linkedtemplates' -StorageAccountName 'containerslabdiag' -LinkedTemplatePath 'https://containerslabdiag.blob.core.usgovcloudapi.net/linkedtemplates' -debug
+.\azure.parameters.json -TemplateContainerName '<NameOfContainer>' -StorageAccountName '<NameOfStorageAccount>' -LinkedTemplatePath '<URLToContainer>' -Debug
 ```
 
 ## __Deploy__
@@ -59,8 +60,8 @@ This command will deploy the resources to Azure, after any issues found during t
 PowerShell
 
 ```PowerShell
-.\deploy.ps1 -DeploymentName 'TestDeployment' -TemplateFile .\azure.json -TemplateParameterFile `
-.\azure.parameters.json -TemplateContainerName 'linkedtemplates' -StorageAccountName 'containerslabdiag' -LinkedTemplatePath 'https://containerslabdiag.blob.core.usgovcloudapi.net/linkedtemplates'
+.\deploy.ps1 -DeploymentName 'Deployment' -TemplateFile .\azure.json -TemplateParameterFile `
+.\azure.parameters.json -TemplateContainerName '<NameOfContainer>' -StorageAccountName '<NameOfStorageAccount>' -LinkedTemplatePath '<URLToContainer>'
 ```
 
 ## __Parameters JSON Schema__
