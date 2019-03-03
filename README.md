@@ -40,7 +40,7 @@ The linked templates support conditions so there is no need to create different 
 2. Copy the files in the LinkedTemplates folder to the Storage Container created in step 1.
 3. Run Connect-AzureRmAccount to connect PowerShell to Azure
 
-![StorageContainer](images\linkedtemplates.PNG)
+![StorageContainer](images/linkedtemplates.PNG)
 
 ## __Testing Your Azure ARM Templates__
 
