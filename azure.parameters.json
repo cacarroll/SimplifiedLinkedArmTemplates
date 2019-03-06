@@ -7,7 +7,7 @@
             {
                 "vnetName": "Network",
                 "serverAdminUserName": "xadmin",
-                "vhdStorageAccountUrl":"https://bmwteststorage.blob.core.usgovcloudapi.net/",
+                "vhdStorageAccountUrl":"https://teststorage.blob.core.usgovcloudapi.net/",
                 "subnets": [
                     {
                         "subnetName": "Public",
