@@ -36,9 +36,10 @@ The linked templates support conditions so there is no need to create different 
 
 ## __Prerequisites__
 
-1. Create a Storage Account and Storage Container.
-2. Copy the files in the LinkedTemplates folder to the Storage Container created in step 1.
-3. Run Connect-AzureRmAccount to connect PowerShell to Azure
+1. Create a Storage Account, a Storage Container for the virtual network, NIC and compute templates, as well as a Storage Container for any specialized VHD images and storing the VHD(s) being created for the VM(s)
+2. Copy the files in the LinkedTemplates folder to the Storage Container created in step 1
+3. Modify the vhdStorageAccountUrl parameter in the parameter file to reflect the path to the VHD Storage Container created in step 1
+4. Run Connect-AzureRmAccount to connect PowerShell to Azure
 
 ![StorageContainer](images/linkedtemplates.PNG)
 
@@ -66,17 +67,17 @@ PowerShell
 
 ## __Parameters JSON Schema__
 
-**targetItemName:** Name assiged to the VM.
+**targetItemName:** Name assiged to the VM
 
-**vhdUrl:** URL to the generalized/specialized VHD that will be used during the creation of the VM.
+**vhdUrl:** URL to the generalized/specialized VHD that will be used during the creation of the VM
 
-**vmSize:** Compute size assigned to the VM.
+**vmSize:** Compute size assigned to the VM
 
-**osType:** The type of operating system of the VM (Windows or Linux).
+**osType:** The type of operating system of the VM (Windows or Linux)
 
-**pip:** True/False if a Public IP address will be assigned to the compute.
+**pip:** If a Public IP address will be assigned to the compute (true or false)
 
-**networks:** Array or networks that will be assigned to the compute.
+**networks:** Array or networks that will be assigned to the compute
 
 **name:** Name assigned to the NIC
 
@@ -86,11 +87,11 @@ PowerShell
 
 ## __Example Paremeter Files__
 
-**multiDomainControllers** - Demonstrates how to deploy specialized VHDs to deploy two Domain Controllers.
+**multiDomainControllers** - Demonstrates how to deploy specialized VHDs to deploy two Domain Controllers
 
 **syspreppedWindowsImage** - Demonstrates how to deploy two sysprepped Windows images
 
-**sccmInfrastructure** - Demonstrates how to deploy Domain Controllers, SCCM Site Servers, and a test server with a public IP.
+**sccmInfrastructure** - Demonstrates how to deploy Domain Controllers, SCCM Site Servers, and a test server with a public IP
 
 ## __References__
 

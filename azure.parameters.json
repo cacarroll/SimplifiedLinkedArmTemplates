@@ -7,6 +7,7 @@
             {
                 "vnetName": "Network",
                 "serverAdminUserName": "xadmin",
+                "vhdStorageAccountUrl":"https://bmwteststorage.blob.core.usgovcloudapi.net/",
                 "subnets": [
                     {
                         "subnetName": "Public",
@@ -27,7 +28,7 @@
                         "vhdUrl": "https://storageaccount.blob.core.usgovcloudapi.net/vhds/DC1.vhd",
                         "vmSize": "Standard_D1_v2",
                         "osType": "Windows",
-                        "imageType": "Specialized",
+                        "imageType": "Generalized",
                         "networks": [
                             {
                                 "name": "Ethernet",
@@ -46,7 +47,7 @@
                         "vhdUrl": "https://storageaccount.blob.core.usgovcloudapi.net/vhds/DC2.vhd",
                         "vmSize": "Standard_D1_v2",
                         "osType": "Windows",
-                        "imageType": "Specialized",
+                        "imageType": "Generalized",
                         "networks": [
                             {
                                 "name": "Ethernet",
@@ -65,7 +66,7 @@
                         "vhdUrl": "https://storageaccount.blob.core.usgovcloudapi.net/vhds/sccmdp01.vhd",
                         "vmSize": "Standard_D1_v2",
                         "osType": "Windows",
-                        "imageType": "Specialized",
+                        "imageType": "Generalized",
                         "networks": [
                             {
                                 "name": "Ethernet",
@@ -84,7 +85,7 @@
                         "vhdUrl": "https://storageaccount.blob.core.usgovcloudapi.net/vhds/Win2012R2Baseline.vhd",
                         "vmSize": "Standard_D1_v2",
                         "osType": "Windows",
-                        "imageType": "Specialized",
+                        "imageType": "Generalized",
                         "pip": true,
                         "networks": [
                             {
@@ -104,7 +105,7 @@
                         "vhdUrl": "https://storageaccount.blob.core.usgovcloudapi.net/vhds/linux01.vhd",
                         "vmSize": "Standard_D12_v2",
                         "osType": "Linux",
-                        "imageType": "Specialized",
+                        "imageType": "Generalized",
                         "networks": [
                             {
                                 "name": "Ethernet",

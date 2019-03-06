@@ -21,6 +21,9 @@
     The name of the Storage Container where the linked ARM Templates are stored for testing and/or deployment (This used to create the SAS Token used to access the virtual network,
     NIC and compute templates)
 
+.PARAMETER VhdContainerName
+    The name of the container where the VHD files for the VM(s) will be stored
+
 .PARAMETER StorageAccountName
     The name of the Storage Account being used to store the virtual network, NIC and compute templates
 
@@ -46,6 +49,9 @@ param(
 
     [string]
     $TemplateContainerName,
+
+    [string]
+    $VhdContainerName,
 
     [string]
     $StorageAccountName,
@@ -95,7 +101,7 @@ if ($null -eq $templateSAStoken)
 
 $DeploymentParam = @{
     ResourceGroupName = $DeploymentName
-    StorageContainerName = $DeploymentName.ToLower()
+    StorageContainerName = $VhdContainerName.ToLower()
     TemplatePath = $LinkedTemplatePath
     TemplateFile = $TemplateFile
     TemplateParameterFile = $TemplateParameterFile
