@@ -18,7 +18,6 @@
             "type": "string"
         }
     },
-
     "resources": [
         {
             "condition": "[equals(parameters('vms')[copyIndex()].imageType, 'Generalized')]",

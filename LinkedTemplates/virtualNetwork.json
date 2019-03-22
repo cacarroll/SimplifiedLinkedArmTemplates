@@ -12,7 +12,6 @@
             "type": "array"
         }
     },
-
     "resources": [
         {
             "name": "[concat(parameters('vNetName'))]",
@@ -27,15 +26,7 @@
                 "addressSpace": {
                     "addressPrefixes": [
                         "[parameters('subnets')[0].subnetRange]",
-                        "[parameters('subnets')[1].subnetRange]",
-                        "[parameters('subnets')[2].subnetRange]",
-                        "[parameters('subnets')[3].subnetRange]",
-                        "[parameters('subnets')[4].subnetRange]",
-                        "[parameters('subnets')[5].subnetRange]",
-                        "[parameters('subnets')[6].subnetRange]",
-                        "[parameters('subnets')[7].subnetRange]",
-                        "[parameters('subnets')[8].subnetRange]",
-                        "[parameters('subnets')[9].subnetRange]"
+                        "[parameters('subnets')[1].subnetRange]"
                     ]
                 },
                 "dhcpOptions": {

@@ -7,7 +7,7 @@
             {
                 "vnetName": "Network",
                 "serverAdminUserName": "xadmin",
-                "templateContainerName": "templates",
+                "vhdStorageAccountUrl":"https://teststorage.blob.core.usgovcloudapi.net/",
                 "subnets": [
                     {
                         "subnetName": "Public",
@@ -28,7 +28,7 @@
                         "vhdUrl": "https://storageaccount.blob.core.usgovcloudapi.net/vhds/DC1.vhd",
                         "vmSize": "Standard_D1_v2",
                         "osType": "Windows",
-                        "imageType": "Specialized",
+                        "imageType": "Generalized",
                         "networks": [
                             {
                                 "name": "Ethernet",
@@ -47,7 +47,7 @@
                         "vhdUrl": "https://storageaccount.blob.core.usgovcloudapi.net/vhds/DC2.vhd",
                         "vmSize": "Standard_D1_v2",
                         "osType": "Windows",
-                        "imageType": "Specialized",
+                        "imageType": "Generalized",
                         "networks": [
                             {
                                 "name": "Ethernet",
@@ -66,7 +66,7 @@
                         "vhdUrl": "https://storageaccount.blob.core.usgovcloudapi.net/vhds/sccmdp01.vhd",
                         "vmSize": "Standard_D1_v2",
                         "osType": "Windows",
-                        "imageType": "Specialized",
+                        "imageType": "Generalized",
                         "networks": [
                             {
                                 "name": "Ethernet",
@@ -76,25 +76,6 @@
                             {
                                 "name": "Ethernet2",
                                 "IPAddress": "10.10.10.101",
-                                "subnetName": "Mgmt"
-                            }
-                        ]
-                    },
-                    {
-                        "targetItemName": "DP01",
-                        "vhdUrl": "https://storageaccount.blob.core.usgovcloudapi.net/vhds/Win2012R2Baseline.vhd",
-                        "vmSize": "Standard_D1_v2",
-                        "osType": "Windows",
-                        "imageType": "Generalized",
-                        "networks": [
-                            {
-                                "name": "Ethernet",
-                                "IPAddress": "192.168.1.102",
-                                "subnetName": "Public"
-                            },
-                            {
-                                "name": "Ethernet2",
-                                "IPAddress": "10.10.10.102",
                                 "subnetName": "Mgmt"
                             }
                         ]
@@ -104,27 +85,8 @@
                         "vhdUrl": "https://storageaccount.blob.core.usgovcloudapi.net/vhds/Win2012R2Baseline.vhd",
                         "vmSize": "Standard_D1_v2",
                         "osType": "Windows",
-                        "imageType": "Specialized",
+                        "imageType": "Generalized",
                         "pip": true,
-                        "networks": [
-                            {
-                                "name": "Ethernet",
-                                "IPAddress": "192.168.1.101",
-                                "subnetName": "Public"
-                            },
-                            {
-                                "name": "Ethernet2",
-                                "IPAddress": "10.10.10.101",
-                                "subnetName": "Mgmt"
-                            }
-                        ]
-                    },
-                    {
-                        "targetItemName": "Linux01",
-                        "vhdUrl": "https://storageaccount.blob.core.usgovcloudapi.net/vhds/linux01.vhd",
-                        "vmSize": "Standard_D12_v2",
-                        "osType": "Linux",
-                        "imageType": "Specialized",
                         "networks": [
                             {
                                 "name": "Ethernet",
@@ -134,6 +96,25 @@
                             {
                                 "name": "Ethernet2",
                                 "IPAddress": "10.10.10.102",
+                                "subnetName": "Mgmt"
+                            }
+                        ]
+                    },
+                    {
+                        "targetItemName": "Linux01",
+                        "vhdUrl": "https://storageaccount.blob.core.usgovcloudapi.net/vhds/linux01.vhd",
+                        "vmSize": "Standard_D12_v2",
+                        "osType": "Linux",
+                        "imageType": "Generalized",
+                        "networks": [
+                            {
+                                "name": "Ethernet",
+                                "IPAddress": "192.168.1.103",
+                                "subnetName": "Public"
+                            },
+                            {
+                                "name": "Ethernet2",
+                                "IPAddress": "10.10.10.103",
                                 "subnetName": "Mgmt"
                             }
                         ]
